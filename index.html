@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Filter Products</title>
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+    <!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="leftMenu">
+
+        <label>
+            <input class="search" type="text" placeholder="Search...">
+        </label>
+        <h1>Categories</h1>
+        <div class="cats">
+
+        </div>
+        <div class="price">
+            <h1>Maximum Price</h1>
+            <input type="range" class="priceRange">
+            <span class="priceValue"></span>
+        </div>
+        <div class="cats">
+            <h1>Sort by price</h1>
+            <span class="cat" id="ascending">Ascending</span>
+            <span class="cat" id="descending">Descending</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="products">
+        </div>
+    </div>
+</div>
+<script src="script.js" type="module"></script>
+</body>
+</html>
