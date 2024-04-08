@@ -7,24 +7,23 @@ const priceRange = document.querySelector('.priceRange');
 const priceValue = document.querySelector('.priceValue');
 const ascendingBtn = document.querySelector('#ascending');
 const descendingBtn = document.querySelector('#descending');
+const urlParams = new URLSearchParams(window.location.search);
 
 let filterSettings = {
-    catSelected: 'All',
+    catSelected: urlParams.get('catSelected') || 'All',
     priceSelected: getMaxPrice(),
-    sortOrder: 'default',
+    sortOrder: urlParams.get('sortOrder') || 'default',
     isSearch: false,
 };
 
 function initApp() {
-    loadFilterSettingsFromURL();
     setPrices();
     setCategories();
-    applyFilters();
     displayProducts(data);
+    applyFilters();
 };
 initApp();
 
-// Event listeners
 priceRange.addEventListener('input', handlePriceRangeChange);
 searchInput.addEventListener('input', handleSearchInputChange);
 categoriesContainer.addEventListener('click', handleCategoryClick);
@@ -32,15 +31,13 @@ ascendingBtn.addEventListener('click', handleSortOrderChange);
 descendingBtn.addEventListener('click', handleSortOrderChange);
 
 window.addEventListener('popstate', () => {
-    // Reload filter settings from URL when browser history changes
-    loadFilterSettingsFromURL();
-    // Apply filters based on the updated filter settings
     applyFilters();
 });
 
 function handlePriceRangeChange(e) {
     priceValue.textContent = e.target.value + ' UAH';
     filterSettings.priceSelected = +e.target.value;
+    updateURL();
     applyFilters();
 }
 
@@ -141,28 +138,12 @@ function setCategories() {
         .join('');
 }
 
-function loadFilterSettingsFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('catSelected')) {
-        filterSettings.catSelected = urlParams.get('catSelected');
-    }
-    // if (urlParams.has('priceSelected')) {
-    //     filterSettings.priceSelected = parseInt(urlParams.get('priceSelected'));
-    // }
-    if (urlParams.has('sortOrder')) {
-        filterSettings.sortOrder = urlParams.get('sortOrder');
-    }
-    if (urlParams.has('isSearch')) {
-        filterSettings.isSearch = urlParams.get('isSearch') === 'true';
-    }
-}
-
 function updateURL() {
     const urlParams = new URLSearchParams();
     urlParams.set('catSelected', filterSettings.catSelected);
     // urlParams.set('priceSelected', filterSettings.priceSelected);
     urlParams.set('sortOrder', filterSettings.sortOrder);
-    urlParams.set('isSearch', filterSettings.isSearch);
+    // urlParams.set('isSearch', filterSettings.isSearch);
     const newURL = window.location.pathname + '?' + urlParams.toString();
     window.history.pushState({}, '', newURL);
 }
